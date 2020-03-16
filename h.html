@@ -24,7 +24,7 @@
                 if (request.status === 200) {
                     let json = JSON.parse(request.responseText);
                     console.log(json);
-                    let server = data.server;
+                    let server = json.server;
                     let p = get('p');
                     if (p === "") {
                         window.location.replace("https://" + server + '/ccc');
