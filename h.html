@@ -8,10 +8,22 @@ p.red {color:rgb(255,0,0)}
 </style>
 <title>请启用Java script</title>
 <script>
-if (location.pathname=="/")
-{window.location.replace('https://laptof.com/ccc');}
-else
-{window.location.replace('https://laptof.com'+location.pathname);}
+function get(name){
+  const parts = window.location.href.split('?');
+  if (parts.length > 1) {
+    name = encodeURIComponent(name);
+    const params = parts[1].split('&');
+    const found = params.filter(el => (el.split('=')[0] === name) && el);
+    if (found.length) return decodeURIComponent(found[0].split('=')[1]);
+  }
+  return "";
+}
+let p = get('p')
+if (p==="") {
+  window.location.replace('https://veryfunni.space/ccc');
+} else {
+  window.location.replace('https://veryfunni.space/'+p);
+}
 </script>
 </head>
 <body>
