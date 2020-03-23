@@ -17,9 +17,8 @@
             }
 
             function get_latest_url() {
-                const parts = window.location.href.split('?');
-                const url = parts[0].replace("https://", "");
-                let urls = url.split('/');
+                let urls = window.location.href.split('?')[0].replace("https://", "").split('/');
+                console.log(urls);
                 if (urls.length === 5) {
                     urls[0] = 'raw.githubusercontent.com';
                     urls[3] = 'master';
@@ -35,9 +34,7 @@
                 }
                 return "latest.json";
             }
-
             let url = get_latest_url();
-            console.log(url);
             let request = new XMLHttpRequest();
             request.open("get", url);
             request.send(null);
