@@ -35,7 +35,9 @@
                 }
                 return "latest.json";
             }
+
             let url = get_latest_url();
+            console.log(url);
             let request = new XMLHttpRequest();
             request.open("get", url);
             request.send(null);
