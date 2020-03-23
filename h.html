@@ -18,7 +18,6 @@
 
             function get_latest_url() {
                 let urls = window.location.href.split('?')[0].replace("https://", "").split('/');
-                console.log(urls);
                 if (urls.length === 5) {
                     urls[0] = 'raw.githubusercontent.com';
                     urls[3] = 'master';
@@ -32,7 +31,7 @@
                     }
                     return latest
                 }
-                return "";
+                return "latest.json";
             }
             let url = get_latest_url();
             let request = new XMLHttpRequest();
@@ -42,7 +41,6 @@
                 if (request.status === 200) {
                     let data = window.atob( request.responseText );
                     let json = JSON.parse(data);
-                    console.log(json);
                     let server = json.server;
                     let p = get('p');
                     if (p === "") {
