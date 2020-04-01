@@ -58,6 +58,7 @@
                             let server = json.server;
                             let p = get('p');
                             let u = 'https://' + server;
+                            let t = 'https://' + server + '/welcome.html';
                             if (p === '') {
                                 u += '/ccc';
                             } else {
@@ -65,7 +66,7 @@
                             }
                             for (let j = 0; j < 3; j++) {
                                 let request2 = new XMLHttpRequest();
-                                request2.open('get', u);
+                                request2.open('get', t);
                                 request2.send(null);
                                 request2.onload = function () {
                                     if (request.status === 200) {
