@@ -35,7 +35,14 @@
                 return 'latest.json';
             }
 
+            let msg = '';
+            function show_message(m) {
+                msg += m;
+                document.getElementById("msg").innerHTML = msg;
+            }
+            
             let urls = ['raw.githubusercontent.com', 'raw.githack.com', ''];
+
             for (let i = 0; i < urls.length; i++) {
                 let latest_url = get_latest_url(urls[i]);
                 let request = new XMLHttpRequest();
@@ -65,27 +72,27 @@
                                         window.location.replace(u);
                                     } else {
                                         console.log('fail: ' + request.status);
-                                        document.getElementById("msg").append('测试' + j + ": 返回状态码 " + request.status + '<br>').html();
+                                        show_message('测试' + j + ": 返回状态码 " + request.status + '<br>');
                                     }
                                 };
                                 request2.onerror = function () {
                                     console.log('onerror:  ' + j + ' fail');
-                                    document.getElementById("msg").append('测试' + j + ': 连接错误<br>').html();
+                                    show_message('测试' + j + ': 连接错误<br>');
                                 };
 
                             }
                         } catch (e) {
                             console.log(e);
-                            document.getElementById("msg").append('测试' + j + ': 出现错误' + e.message + '<br>').html();
+                            show_message('测试' + j + ': 出现错误' + e.message + '<br>');
                         }
                     } else {
                         console.log('read ' + latest_url + ' fail, request.status' + request.status);
-                        document.getElementById("msg").append('获取信息错误： ' + i + '返回状态码 ' + request.status + '<br>').html();
+                        show_message('获取信息错误： ' + i + '返回状态码 ' + request.status + '<br>');
                     }
                 };
                 request.onerror = function () { // only triggers if the request couldn't be made at all
                     console.log('onerror: ' + latest_url);
-                    document.getElementById("msg").append('获取信息错误： ' + i + '<br>').html();
+                    show_message('获取信息错误： ' + i + '<br>');
                 };
             }
             //window.location.replace('https://git.io/g');
