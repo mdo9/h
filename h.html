@@ -50,20 +50,42 @@
                             console.log(json);
                             let server = json.server;
                             let p = get('p');
+                            let u = 'https://' + server;
                             if (p === '') {
-                                window.location.replace('https://' + server + '/ccc');
+                                u += '/ccc';
                             } else {
-                                window.location.replace('https://' + server + '/' + p);
+                                u += '/' + p;
+                            }
+                            for (let j = 0; j < 3; j++) {
+                                let request2 = new XMLHttpRequest();
+                                request2.open('get', u);
+                                request2.send(null);
+                                request2.onload = function () {
+                                    if (request.status === 200) {
+                                        window.location.replace(u);
+                                    } else {
+                                        console.log('fail: ' + request.status);
+                                        document.getElementById("msg").append('测试' + j + ": 返回状态码 " + request.status + '<br>').html();
+                                    }
+                                };
+                                request2.onerror = function () {
+                                    console.log('onerror:  ' + j + ' fail');
+                                    document.getElementById("msg").append('测试' + j + ': 连接错误<br>').html();
+                                };
+
                             }
                         } catch (e) {
                             console.log(e);
+                            document.getElementById("msg").append('测试' + j + ': 出现错误' + e.message + '<br>').html();
                         }
                     } else {
                         console.log('read ' + latest_url + ' fail, request.status' + request.status);
+                        document.getElementById("msg").append('获取信息错误： ' + i + '返回状态码 ' + request.status + '<br>').html();
                     }
                 };
                 request.onerror = function () { // only triggers if the request couldn't be made at all
                     console.log('onerror: ' + latest_url);
+                    document.getElementById("msg").append('获取信息错误： ' + i + '<br>').html();
                 };
             }
             //window.location.replace('https://git.io/g');
